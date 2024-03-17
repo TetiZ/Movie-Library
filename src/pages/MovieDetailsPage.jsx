@@ -1,19 +1,31 @@
-import { useState, useEffect } from "react";
-import { Outlet, useParams, NavLink } from "react-router-dom";
-import { getMovieById } from "../movies-api";
+import { useState, useEffect, useRef } from "react";
+import { Outlet, useParams, NavLink, useLocation } from "react-router-dom";
+import { getMovieById, getImgPath } from "../movies-api";
 
 export default function MovieDetailsPage() {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [img, setImg] = useState("");
+  const location = useLocation();
+  const backLinkRef = useRef(location.state ?? "/movies");
 
   useEffect(() => {
     async function getData() {
       try {
         setLoading(true);
-        const data = await getMovieById(movieId);
-        setMovie(data);
+        const [movieData, imgData] = await Promise.all([
+          getMovieById(movieId),
+          getImgPath(movieId),
+        ]);
+
+        const baseURL = imgData.images.base_url;
+        const size = imgData.images.poster_sizes[5];
+        const posterPath = movieData.poster_path;
+
+        setMovie(movieData);
+        setImg(posterPath && `${baseURL}${size}${posterPath}`);
       } catch (e) {
         setError(true);
       } finally {
@@ -27,17 +39,22 @@ export default function MovieDetailsPage() {
     <>
       {loading && <p>Loading...</p>}
       {error && <p>Error!</p>}
-      <NavLink to="/">Go Back</NavLink>
+      <NavLink to={backLinkRef.current}>Go Back</NavLink>
       {movie && (
         <div>
-          <h2>
-            {movie.title} ({movie.release_date.slice(0, 4)})
-          </h2>
-          <p>User score: {movie.vote_average.toFixed(1) * 10}%</p>
-          <h3>Overview</h3>
-          <p>{movie.overview}</p>
-          <h3>Genres</h3>
-          <p>{movie.genres.map((genre) => genre.name).join(", ")}</p>
+          <div>
+            <img src={img} alt="movie poster" />
+          </div>
+          <div>
+            <h2>
+              {movie.title} ({movie.release_date.slice(0, 4)})
+            </h2>
+            <p>User score: {movie.vote_average.toFixed(1) * 10}%</p>
+            <h3>Overview</h3>
+            <p>{movie.overview}</p>
+            <h3>Genres</h3>
+            <p>{movie.genres.map((genre) => genre.name).join(", ")}</p>
+          </div>
         </div>
       )}
 

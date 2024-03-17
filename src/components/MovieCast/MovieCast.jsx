@@ -4,7 +4,7 @@ import { getMovieCast } from "../../movies-api";
 
 export default function MovieCast() {
   const { movieId } = useParams();
-  const [actors, setActors] = useState([]);
+  const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
@@ -13,7 +13,7 @@ export default function MovieCast() {
       try {
         setLoading(true);
         const data = await getMovieCast(movieId);
-        setActors(data);
+        setMovie(data);
       } catch (e) {
         setError(true);
       } finally {
@@ -27,15 +27,15 @@ export default function MovieCast() {
     <>
       {loading && <p>Loading...</p>}
       {error && <p>Error!</p>}
-      {actors.length > 0 && (
-        <ul>
-          {actors.cast.map((actor) => (
-            <li key={actor.cast_id}>
-              <p>{actor.name}</p>
-              <p>Character: {actor.character}</p>
+      {movie && (
+        <div>
+          {movie.cast.map((cast) => (
+            <li key={cast.cast_id}>
+              <p>{cast.name}</p>
+              <p>Character: {cast.character}</p>
             </li>
           ))}
-        </ul>
+        </div>
       )}
     </>
   );

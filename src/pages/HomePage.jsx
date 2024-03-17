@@ -25,6 +25,7 @@ export default function HomePage() {
     <>
       {loading && <p>Loading...</p>}
       {error && <p>Error!</p>}
+      <h1>Trending today</h1>
       <MovieList movies={movies} />
     </>
   );

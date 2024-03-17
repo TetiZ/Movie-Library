@@ -47,3 +47,21 @@ export const getMovieReviews = async (movieId) => {
     console.error(e);
   }
 };
+
+export const getMoviesByQuery = async (query) => {
+  try {
+    const response = await axios.get(`/search/movie?query=${query}`, options);
+    return response.data.results;
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+export const getImgPath = async () => {
+  try {
+    const response = await axios.get("/configuration", options);
+    return response.data;
+  } catch (e) {
+    console.error(e);
+  }
+};
