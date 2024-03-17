@@ -1,0 +1,22 @@
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  box-shadow: 0 0 20px #000000;
+  width: 100%;
+  padding: 8px 12px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.navLink {
+  color: rgba(254, 251, 232, 0.5);
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.isActive {
+  color: wheat;
+  text-decoration: underline;
+}

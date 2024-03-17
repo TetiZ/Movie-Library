@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { getMovieReviews } from "../../movies-api";
 import { useParams } from "react-router-dom";
+import css from "./MovieReviews.module.css";
 
 export default function MovieReviews() {
   const { movieId } = useParams();
@@ -26,13 +27,17 @@ export default function MovieReviews() {
   return (
     <>
       {loading && <p>Loading...</p>}
-      {error && <p>Error!</p>}
+      {error && (
+        <p>
+          Oops! There's been some kind of mistake. Just try to reload the page
+        </p>
+      )}
       {reviews.length > 0 ? (
         <ul>
           {reviews.map((review) => (
             <li key={review.id}>
               <h4>Author: {review.author}</h4>
-              <p>{review.content}</p>
+              <p className={css.comment}>{review.content}</p>
             </li>
           ))}
         </ul>

@@ -1,0 +1,41 @@
+.btn {
+  color: rgb(0, 0, 0);
+  padding: 8px 16px;
+  background-color: rgba(254, 251, 232, 0.5);
+  border-radius: 2px;
+  border: none;
+  transition: transform 0.1s ease;
+  position: relative;
+  z-index: 999;
+}
+
+.btn:active {
+  transform: scale(0.8);
+}
+
+.details {
+  margin-top: 40px;
+  display: flex;
+}
+
+.img {
+  width: 240px;
+}
+
+.info {
+  padding: 0 24px;
+  width: 720px;
+}
+
+.navLink {
+  color: rgba(254, 251, 232, 0.5);
+}
+
+.isActive {
+  color: wheat;
+  text-decoration: underline;
+}
+
+.listItem {
+  margin-bottom: 8px;
+}

@@ -1,10 +1,10 @@
 // import css from "./App.module.css";
 // import clsx from "clsx";
 import { Routes, Route } from "react-router-dom";
-import HomePage from "../../pages/HomePage";
-import MoviesPage from "../../pages/MoviesPage";
-import MovieDetailsPage from "../../pages/MovieDetailsPage";
-import NotFoundPage from "../../pages/NotFoundPage";
+import HomePage from "../../pages/HomePage/HomePage";
+import MoviesPage from "../../pages/MoviesPage/MoviesPage";
+import MovieDetailsPage from "../../pages/MovieDetailsPage/MovieDetailsPage";
+import NotFoundPage from "../../pages/NotFoundPage/NotFoundPage";
 import MovieCast from "../../components/MovieCast/MovieCast";
 import MovieReviews from "../../components/MovieReviews/MovieReviews";
 import Navigation from "./Navigation/Navigation";

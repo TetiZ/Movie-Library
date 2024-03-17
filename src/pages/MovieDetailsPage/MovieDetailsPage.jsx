@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { Outlet, useParams, NavLink, useLocation } from "react-router-dom";
-import { getMovieById, getImgPath } from "../movies-api";
+import { getMovieById, getImgPath } from "../../movies-api";
+import css from "./MovieDetailsPage.module.css";
+import clsx from "clsx";
 
 export default function MovieDetailsPage() {
   const { movieId } = useParams();
@@ -10,6 +12,13 @@ export default function MovieDetailsPage() {
   const [img, setImg] = useState("");
   const location = useLocation();
   const backLinkRef = useRef(location.state ?? "/movies");
+
+  const noPoster =
+    "https://images.unsplash.com/photo-1595452767427-0905ad9b036d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1NzU0Mjh8MHwxfHNlYXJjaHwzfHxxdWVzdGlvbnxlbnwwfHx8fDE3MTA2ODQzMDh8MA&ixlib=rb-4.0.3&q=80&w=1080";
+
+  const linkClass = ({ isActive }) => {
+    return clsx(css.navLink, isActive && css.isActive);
+  };
 
   useEffect(() => {
     async function getData() {
@@ -38,14 +47,20 @@ export default function MovieDetailsPage() {
   return (
     <>
       {loading && <p>Loading...</p>}
-      {error && <p>Error!</p>}
-      <NavLink to={backLinkRef.current}>Go Back</NavLink>
+      {error && (
+        <p>
+          Oops! There's been some kind of mistake. Just try to reload the page
+        </p>
+      )}
+      <NavLink className={css.btn} to={backLinkRef.current}>
+        Go Back
+      </NavLink>
       {movie && (
-        <div>
-          <div>
-            <img src={img} alt="movie poster" />
+        <div className={css.details}>
+          <div className={css.img}>
+            <img src={img ? img : noPoster} alt="movie poster" />
           </div>
-          <div>
+          <div className={css.info}>
             <h2>
               {movie.title} ({movie.release_date.slice(0, 4)})
             </h2>
@@ -60,11 +75,15 @@ export default function MovieDetailsPage() {
 
       <hr />
       <ul>
-        <li>
-          <NavLink to="cast">Cast</NavLink>
+        <li className={css.listItem}>
+          <NavLink className={linkClass} to="cast">
+            Cast
+          </NavLink>
         </li>
-        <li>
-          <NavLink to="reviews">Reviews</NavLink>
+        <li className={css.listItem}>
+          <NavLink className={linkClass} to="reviews">
+            Reviews
+          </NavLink>
         </li>
       </ul>
 

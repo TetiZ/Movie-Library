@@ -1,0 +1,15 @@
+.img {
+  width: 88px;
+}
+
+.listItem {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+  width: calc((100% - 16px) / 2);
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+}

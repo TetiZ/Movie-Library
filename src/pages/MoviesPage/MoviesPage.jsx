@@ -1,7 +1,8 @@
 import { useSearchParams } from "react-router-dom";
-import { getMoviesByQuery } from "../movies-api";
+import { getMoviesByQuery } from "../../movies-api";
 import { useEffect, useState } from "react";
-import MovieList from "../components/MovieList/MovieList";
+import MovieList from "../../components/MovieList/MovieList";
+import css from "./MoviesPage.module.css";
 
 export default function MoviesPage() {
   const [params, setParams] = useSearchParams();
@@ -36,14 +37,29 @@ export default function MoviesPage() {
   return (
     <>
       <form onSubmit={submitHandler}>
-        <input type="text" name="query" required></input>
-        <button>Search</button>
+        <input
+          className={css.input}
+          type="text"
+          name="query"
+          placeholder="Type your keyword for search"
+          pattern="[a-zA-Z0-9]+"
+          required
+        ></input>
+        <button className={css.btn}>Search</button>
       </form>
 
       {loading && <p>Loading...</p>}
-      {error && <p>Error!</p>}
+      {error && (
+        <p>
+          Oops! There's been some kind of mistake. Just try to reload the page
+        </p>
+      )}
 
-      <MovieList movies={movies} />
+      {movies.length > 0 ? (
+        <MovieList movies={movies} />
+      ) : (
+        <p>No movies found for your search :(</p>
+      )}
     </>
   );
 }

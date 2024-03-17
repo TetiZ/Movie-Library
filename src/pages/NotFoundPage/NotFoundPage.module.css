@@ -1,0 +1,25 @@
+.btn {
+  color: rgb(0, 0, 0);
+  padding: 8px 16px;
+  background-color: rgba(254, 251, 232, 0.5);
+  border-radius: 2px;
+  border: none;
+  transition: transform 0.1s ease;
+}
+
+.btn:active {
+  transform: scale(0.8);
+}
+
+.noFoundWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* Set height to fill the entire viewport */
+}
+
+/* Additional styling for the button */
+.btn {
+  margin-top: 20px; /* Add some space between the paragraph and the button */
+}
