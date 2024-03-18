@@ -45,7 +45,7 @@ export default function MovieCast() {
           Oops! There's been some kind of mistake. Just try to reload the page
         </p>
       )}
-      {movie && (
+      {movie ? (
         <ul className={css.list}>
           {movie.cast.map((cast) => (
             <li className={css.listItem} key={cast.cast_id}>
@@ -64,6 +64,8 @@ export default function MovieCast() {
             </li>
           ))}
         </ul>
+      ) : (
+        <p>There are no information about this movie cast</p>
       )}
     </>
   );
