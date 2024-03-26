@@ -5,7 +5,7 @@ import css from "./MovieCast.module.css";
 
 export default function MovieCast() {
   const { movieId } = useParams();
-  const [movie, setMovie] = useState(null);
+  const [movie, setMovie] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [img, setImg] = useState("");
@@ -45,7 +45,7 @@ export default function MovieCast() {
           Oops! There's been some kind of mistake. Just try to reload the page
         </p>
       )}
-      {movie.cast.length > 0 ? (
+      {movie && movie.cast && movie.cast.length > 0 ? (
         <ul className={css.list}>
           {movie.cast.map((cast) => (
             <li className={css.listItem} key={cast.cast_id}>
